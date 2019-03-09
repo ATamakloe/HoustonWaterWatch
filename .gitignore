@@ -1,0 +1,6 @@
+server.env
+/node_modules
+src/server/waterdatacsv/*
+.babelrc
+.tsconfig.json
+.eslintrc.json
