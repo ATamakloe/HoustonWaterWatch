@@ -47,3 +47,41 @@ export async function addressToCoords(address) {
 export function withinAlertRadius(baseCoords, otherCoords, radiusInMiles = 5) {
   return getDistance(baseCoords, otherCoords) <= radiusInMiles;
 };
+
+
+
+export function formValidation() {
+}
+
+
+export function checkPhoneNumber(phoneNumber) {
+  let errors = [];
+  !goodPhoneLength(phoneNumber) && errors.push("Invalid phone number length");
+  !isOnlyNumbers(phoneNumber) && errors.push("Invalid phone number");
+  return errors
+}
+
+export function checkAddress(address) {
+  let errors = [];
+  !hasNoBadCharacters(address) && errors.push("Address can only contain letters and numbers");
+  !goodAddressLength(address) && errors.push("Address is not long enough");
+  return errors
+}
+
+function goodPhoneLength(someField) {
+  return (someField.length >= 10 && someField.length < 11)
+}
+
+function goodAddressLength(address) {
+  return address.length >= 13 && address.length < 37
+}
+
+function hasNoBadCharacters(someField) {
+  let addressregex = /^[-\w\s]+$/;
+  return addressregex.test(someField)
+}
+
+function isOnlyNumbers(someField) {
+  let phoneregex = /^[0-9]+$/;
+  return someField.match(phoneregex)
+}

@@ -23,6 +23,9 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
+html {
+  height: 100vh;
+}
 body {
 	line-height: 1;
 }
@@ -58,16 +61,16 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+	height: 100%;
 }
 
 footer {
-  background-color: rgba(101, 125, 252, 0.97);
+  text-align: center;
+  background-color: rgb(28, 58, 166);
   color: white;
   height: 5vh;
   max-width: 100vw;
   padding: 10px;
   text-rendering: optimizeLegibility;
-  text-transform: uppercase;
-  font-weight:900;
   font-size: 1em;
 }

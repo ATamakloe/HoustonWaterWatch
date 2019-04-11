@@ -5,7 +5,7 @@ import './TitleBar.css';
 const TitleBar = ({triggerModal}) => {
   return(
     <nav className="titlebar">
-    <h3>Houston Flood Watch</h3>
+    <h3 className="title">Houston Flood Watch</h3>
     <button class="getalerts" onClick={triggerModal}>Get Alerts</button>
   </nav>
 )

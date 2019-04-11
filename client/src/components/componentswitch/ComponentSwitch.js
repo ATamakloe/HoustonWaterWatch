@@ -10,15 +10,15 @@ function switchActiveTabStyle(tabName, ref) {
 const ComponentSwitch = ({switchTabs, selectedComponent}) => {
       return (
         <div className="maincontainernav">
-          <p data-tab="map" onClick={switchTabs} className={switchActiveTabStyle("map", selectedComponent)}>
+          <button data-tab="map" onClick={switchTabs} className={switchActiveTabStyle("map", selectedComponent)} tabIndex="2">
             Flood Map
-          </p>
-          <p data-tab="table" onClick={switchTabs} className={switchActiveTabStyle("table", selectedComponent)}>
+      </button>
+          <button data-tab="table" onClick={switchTabs} className={switchActiveTabStyle("table", selectedComponent)} tabIndex="2">
              Flood Table
-          </p>
-          <p data-tab="graph" onClick={switchTabs} className={switchActiveTabStyle("graph", selectedComponent)}>
+      </button>
+          <button data-tab="graph" onClick={switchTabs} className={switchActiveTabStyle("graph", selectedComponent)} tabIndex="2">
             Site Graph
-          </p>
+      </button>
         </div>
 
       )

@@ -2,7 +2,7 @@ import React from 'react';
 import Loading from '../loading/Loading';
 import './WeatherBar.css';
 
-const WeatherBar = ( {weatherData} ) => {
+const WeatherBar = ( {weatherData, floodedSites} ) => {
   if (weatherData === null) {
     return (
       <div className="weatherbar">
@@ -20,9 +20,9 @@ const WeatherBar = ( {weatherData} ) => {
   } else {
     return (
     <div className="weatherbar">
-    <div className="weatheritem"> {weatherData.summary} <br/> {weatherData.icon}</div>
-    <div className="weatheritem"> {weatherData.temperature} </div>
-    <div className="weatheritem"> {weatherData.precipIntensity} </div>
+    <div className="weatheritem"> Weather <br/> {weatherData.summary}</div>
+    <div className="weatheritem"> Temp. <br />{weatherData.temperature.toString().slice(0,-3)}°F </div>
+    <div className="weatheritem"> {floodedSites}% of Sites Flooded  </div>
     </div>
     )
   }

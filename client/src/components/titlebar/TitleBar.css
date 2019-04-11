@@ -16,9 +16,20 @@
   font-size: 1.5em;
 }
 .getalerts {
+  height: 30px;
+  border:none;
   margin-right: 10px;
-  background-color: rgb(255, 97, 82);
+  margin-left: 10px;
+  background-color: var(--button-red);
   color: white;
+  margin-right: 30px;
+  text-transform: uppercase;
+
+}
+
+.getalerts:hover {
+  cursor: pointer;
+  filter: brightness(140%);
 }
 
 @media
@@ -27,15 +38,12 @@
     margin-bottom: 2px;
   }
 
-  .title {
-    height     : 18px;
-    padding    : 11px;
-    text-align : center;
-    font-size  : 16px;
+  .titlebar h3 {
+    font-size: 1.2em;
   }
 
-  .siteitem {
-    min-height : 4vh;
-    text-align : center;
-  }
+  .getalerts {
+      height: 20px;
+      font-size: 0.8em;
+      }
 }

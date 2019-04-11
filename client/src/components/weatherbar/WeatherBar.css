@@ -3,7 +3,6 @@
   max-width        : 33vw;
   max-height       : 100vh;
   padding-right    : 0px;
-  overflow-y       : scroll;
   border-radius    : 5px;
   background-color : white;
   text-align       : center;
@@ -35,7 +34,7 @@
 
 @media
   (max-width : 800px) {
-    
+
   .siteitem {
     min-height : 4vh;
     text-align : center;

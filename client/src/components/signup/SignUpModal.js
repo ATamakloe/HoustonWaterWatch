@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import SignUpForm from '../signup/signupform/SignUpForm';
 import SignUpComplete from '../signup/signupcompleted/SignUpCompleted';
+import {checkPhoneNumber, checkAddress} from '../../helpers/helpers'
 import './SignUp.css';
 
 class SignUpModal extends Component {
@@ -9,33 +10,42 @@ class SignUpModal extends Component {
     this.state = {
       formCompleted: false,
       address:"",
-      phoneNumber:""
+      phoneNumber:"",
+      formErrors:{address:[], phoneNumber:[]}
     }
   }
 
   handleInputChange = (e) => {
-    e.target.name === "number" ? this.setState({phoneNumber:e.target.value}) :
-    this.setState({address:e.target.value});
-  }
+    let name = e.target.name;
+    let value = e.target.value;
+      if (name === "number") {
+        this.setState(prevState => ({
+          phoneNumber:value,
+          formErrors: {
+            ...prevState.formErrors,
+            phoneNumber:checkPhoneNumber(value)}
+        }));
+      } else if (name === "address") {
+        this.setState(prevState => ({
+          address:value,
+          formErrors: {
+            ...prevState.formErrors,
+            address:checkAddress(value)}
+        }))
+      }
+    }
 
   setFormCompletion = () => {
     this.setState({formCompleted: true}, () => {this.props.onSubmit(this.state.address, this.state.phoneNumber)})
   }
 
-  phoneValidation = /^(1\s|1|)?((\(\d{3}\))|\d{3})(\-|\s)?(\d{3})(\-|\s)?(\d{4})$/;
-  addressValidation = /[^a-zA-Z,\d\s:]/;
   render() {
 
-    /*
-  const isEnabled =
-    (this.state.phoneNumber.length > 0 || this.state.phoneNumber.length < 11) &
-    (this.phoneValidation.test(this.state.phoneNumber)) &
-    (this.state.address.length > 0 || this.addressValidation.test(this.state.address))
-    */
+  const isEnabled = this.state.formErrors.address.length === 0 && this.state.formErrors.phoneNumber.length === 0;
 
   const modalBody = this.state.formCompleted ?
   <SignUpComplete triggerModal={this.props.triggerModal}/> :
-  <SignUpForm  handleInputChange={this.handleInputChange} setFormCompletion={this.setFormCompletion} triggerModal={this.props.triggerModal}/>;
+  <SignUpForm  handleInputChange={this.handleInputChange} setFormCompletion={this.setFormCompletion} triggerModal={this.props.triggerModal} isEnabled={isEnabled} formErrors={this.state.formErrors}/>;
 
   return(
     <div className="modal">

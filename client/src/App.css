@@ -1,14 +1,15 @@
 :root {
   --main-color : rgb(28, 58, 166);
   --font-color : white;
-  --button-red : rgb(255, 97, 82);
+  --button-red : rgb(203, 2, 2);
 }
 
 .App {
   display               : grid;
-  height                : 92vh;
-  margin                : 0px 20px 0px 0px;
+  height                : 95vh;
+  margin                : 0px 0px 5px 0px;
   padding               : 0 0 0 0;
+  overflow-x            : hidden;
   grid-gap              : 0px 10px;
   grid-template-columns : 20% 1fr 1fr 1fr;
   grid-template-rows    : 9% 30% 30% 30% .95fr;
@@ -35,6 +36,7 @@
                             "c c c"
                             "b b b";
   }
+
   .siteitem {
     min-height : 4vh;
     text-align : center;

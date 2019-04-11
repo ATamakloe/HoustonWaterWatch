@@ -6,4 +6,3 @@ server.env
 .eslintrc.json
 src/server/helpers/dbclient.ts
 src/server/waterdatacsv/*
-../client/node_modules
