@@ -1,0 +1,42 @@
+:root {
+  --main-color : rgb(28, 58, 166);
+  --font-color : white;
+  --button-red : rgb(255, 97, 82);
+}
+
+.App {
+  display               : grid;
+  height                : 92vh;
+  margin                : 0px 20px 0px 0px;
+  padding               : 0 0 0 0;
+  grid-gap              : 0px 10px;
+  grid-template-columns : 20% 1fr 1fr 1fr;
+  grid-template-rows    : 9% 30% 30% 30% .95fr;
+  grid-template-areas   : "a a a a"
+                          "b c c c"
+                          "b c c c"
+                          "b c c c"
+                          "b c c c";
+}
+
+@media
+  (max-width : 800px) {
+  .App {
+    display               : grid;
+    height                : 94vh;
+    margin                : 0 0 0px 0;
+    padding               : 0 0 0 0;
+    grid-gap              : 0px 5px;
+    grid-template-columns : 1fr 1fr 1fr;
+    grid-template-rows    : 8% 28% 28% 28% 1fr;
+    grid-template-areas   : "a a a"
+                            "c c c"
+                            "c c c"
+                            "c c c"
+                            "b b b";
+  }
+  .siteitem {
+    min-height : 4vh;
+    text-align : center;
+  }
+}

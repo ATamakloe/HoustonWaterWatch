@@ -1,0 +1,9 @@
+server.env
+.env
+/node_modules
+.babelrc
+.tsconfig.json
+.eslintrc.json
+src/server/helpers/dbclient.ts
+src/server/waterdatacsv/*
+../client/node_modules

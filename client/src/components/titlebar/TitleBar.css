@@ -1,0 +1,41 @@
+.titlebar {
+  grid-area: a;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+  background-color: var(--main-color);
+  color: var(--font-color);
+  margin-bottom: 10px;
+}
+
+.titlebar h3 {
+  margin-left: 10px;
+  text-transform: uppercase;
+  font-size: 1.5em;
+}
+.getalerts {
+  margin-right: 10px;
+  background-color: rgb(255, 97, 82);
+  color: white;
+}
+
+@media
+  (max-width : 800px) {
+  .titlebar {
+    margin-bottom: 2px;
+  }
+
+  .title {
+    height     : 18px;
+    padding    : 11px;
+    text-align : center;
+    font-size  : 16px;
+  }
+
+  .siteitem {
+    min-height : 4vh;
+    text-align : center;
+  }
+}

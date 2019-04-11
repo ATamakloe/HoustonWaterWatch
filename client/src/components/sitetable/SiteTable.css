@@ -1,0 +1,5 @@
+.tablewrapper {
+  visibility : visible;
+  overflow   : scroll;
+  grid-area  : c;
+}
