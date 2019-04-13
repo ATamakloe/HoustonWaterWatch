@@ -14,7 +14,7 @@ class SignUpModal extends Component {
       formErrors:{address:[], phoneNumber:[]}
     }
   }
-
+  //Form input validated for length, characters. Checked again server-side. Please don't hack this
   handleInputChange = (e) => {
     let name = e.target.name;
     let value = e.target.value;
@@ -40,9 +40,9 @@ class SignUpModal extends Component {
   }
 
   render() {
-
+  //Disables form submission if there are any errors
   const isEnabled = this.state.formErrors.address.length === 0 && this.state.formErrors.phoneNumber.length === 0;
-
+  //Once form is completed, shows the form complete component
   const modalBody = this.state.formCompleted ?
   <SignUpComplete triggerModal={this.props.triggerModal}/> :
   <SignUpForm  handleInputChange={this.handleInputChange} setFormCompletion={this.setFormCompletion} triggerModal={this.props.triggerModal} isEnabled={isEnabled} formErrors={this.state.formErrors}/>;

@@ -18,11 +18,14 @@ const WeatherBar = ( {weatherData, floodedSites} ) => {
       </div>
     )
   } else {
+    let time = new Date(weatherData.time * 1000).toString().slice(3, 21);
     return (
     <div className="weatherbar">
-    <div className="weatheritem"> Weather <br/> {weatherData.summary}</div>
-    <div className="weatheritem"> Temp. <br />{weatherData.temperature.toString().slice(0,-3)}°F </div>
-    <div className="weatheritem"> {floodedSites}% of Sites Flooded  </div>
+      <h1>Weather</h1>
+    <div className="weatheritem"> {weatherData.summary}<br /> {weatherData.temperature.toString().slice(0,-3)}°F </div>
+      <div className="weatheritem"> {floodedSites}% of Sites flooding  </div>
+    <div className="weatheritem">Last updated<br/> {time} </div>
+
     </div>
     )
   }

@@ -109,7 +109,7 @@ app.post('/subscribe', (req:express.Request, res:express.Response) => {
 const CronTimes = {
   DailyUpdateTime: '00 30 00 * * *',
   //Every day at 12:30AM
-  WaterLevelUpdateTimer: '* 15 * * * *',
+  WaterLevelUpdateTimer: '* 20 * * * *',
   //Every 15 minutes
   FloodAlertTimer: '* 10 * * * *'
   //Every 10 minutes

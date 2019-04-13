@@ -2,3 +2,14 @@
   visibility : visible;
   grid-area  : c;
 }
+
+.graph p {
+  margin-top: 40vh;
+}
+
+@media
+  (max-width : 800px) {
+    .graph p {
+      font-size: 0.9em;
+    }
+  }

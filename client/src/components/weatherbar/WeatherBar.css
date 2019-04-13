@@ -10,6 +10,11 @@
   grid-area        : b;
 }
 
+.weatherbar h1 {
+  padding: 10px;
+  background-color: var(--main-color);
+  color: var(--font-color);
+}
 
 .weatheritem {
   display         : flex;
@@ -45,8 +50,13 @@
     margin-bottom  : 2px;
     flex-direction : row;
   }
+
+  .weatherbar h1 {
+    display: none;
+  }
   .weatheritem {
     max-height: 100%;
-    min-height: 1vh;;
+    min-height: 1vh;
+    font-size: 0.9em;
   }
 }

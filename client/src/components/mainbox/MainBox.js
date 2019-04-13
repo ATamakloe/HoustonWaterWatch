@@ -9,6 +9,9 @@ import './MainBox.css';
 const MainBox = ({ siteData, graphData, loadSiteGraph, switchTabs, selectedComponent }) => {
     let displayedComponent;
 
+    //selectedComponent prop recieved from parent determines which component is rendered
+    //selectedComponent is controlled by switchTabs function, which is passed down to
+    //ComponentSwitch
     switch (selectedComponent) {
       case null:
       case 'map':

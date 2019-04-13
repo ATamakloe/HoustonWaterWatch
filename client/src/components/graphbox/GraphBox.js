@@ -6,7 +6,7 @@ import './GraphBox.css'
 const GraphBox = ({graphData}) => {
   if (graphData === null) {
 
-    return <div className="graph">Select a site from the Map or Site Table to load a graph</div>
+    return <div className="graph"> <p>Select a site from the Flood Map or Flood Table to load a graph</p></div>
   } else if (graphData === "Loading") {
     return <div className="graph"><Loading/></div>
   } else {
@@ -20,6 +20,7 @@ const GraphBox = ({graphData}) => {
       floodline = floodStage.caution
         ? waterValues.map(values => floodStage.flood)
         : [],
+      //Config for chart
       options = {
         title: {
           display: true,

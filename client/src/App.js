@@ -43,6 +43,10 @@ loadSiteGraph = async (event) => {
   this.setState({selectedComponent: 'graph', graphData: 'Loading'});
   let newData = await fetch(`sites/${event.target.id}`).then(data => data.json());
   this.setState({graphData: newData});
+
+  //Currently this works, but setState is asynchronous so I can see this becoming a problem
+  //In the future, might refactor to fetch the data in setState's callback but need to
+  //do a bit more research on tradeoffs and potential pitfalls.
 };
 
 switchTabs = (event) => {
@@ -57,8 +61,11 @@ triggerModal = () => {
 }
 
 onSubmit = async (address, phoneNumber) => {
+  //Take the address supplied by the form, convert it to coords (lat/long)
   const refCoords = await addressToCoords(address);
+  //Filter all sites according to which ones are within a 5 mile radius (withinAlertRadius's default radius param)
   const validSites = this.state.siteData.filter(site => withinAlertRadius(refCoords, [site.location.latitude, site.location.longitude])).map(site => site.siteCode);
+  //Send the phone number supplied + a list of close sites to the server
   const data = {phoneNumber: phoneNumber, validSites: validSites};
 
   fetch("/subscribe", {
@@ -71,8 +78,9 @@ onSubmit = async (address, phoneNumber) => {
 }
 
   render() {
+    //Checking for null so this doesn't crash when initially loading
     const siteLocations = this.state.siteData === null ? null : this.state.siteData.map(x => ({siteCode: x.siteCode, lat:x.location.latitude, lon:x.location.longitude }));
-    const floodedSites = this.state.siteData === null ? null : ((this.state.siteData.filter(site => site.floodStatus === "Caution" || site.floodStatus === "Flooding").length / this.state.siteData.length) * 100).toFixed(1);
+    const floodedSites = this.state.siteData === null ? null : ((this.state.siteData.filter(site => site.floodStatus === "Caution" || site.floodStatus === "Flooding").length / this.state.siteData.length) * 100).toFixed(0);
     return (
       <div className="App">
         <TitleBar triggerModal={this.triggerModal}/>
