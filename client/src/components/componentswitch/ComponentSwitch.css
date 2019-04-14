@@ -6,9 +6,9 @@
 }
 
 .maincontainernav button:hover {
-  cursor: pointer;
   color            : var(--font-color);
   background-color : var(--main-color);
+  cursor           : pointer;
 }
 
 .maincontainernav button {
@@ -18,12 +18,13 @@
   margin           : 0 0 0 0;
   padding          : 10px;
   color            : var(--main-color);
-  border           : none; /*Reset default border styling */
+  border           : none;
   border-bottom    : 2px solid rgb(232, 232, 232);
   background-color : var(--font-color);
   text-align       : center;
   flex-basis       : 50%;
   flex-grow        : 1;
+  /* Reset default border styling */
 }
 
 .selected {

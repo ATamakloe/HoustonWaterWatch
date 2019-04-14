@@ -4,12 +4,12 @@
 }
 
 .graph p {
-  margin-top: 40vh;
+  margin-top : 40vh;
 }
 
 @media
   (max-width : 800px) {
-    .graph p {
-      font-size: 0.9em;
-    }
+  .graph p {
+    font-size : 0.9em;
   }
+}

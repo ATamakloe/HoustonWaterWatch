@@ -18,6 +18,14 @@ class App extends Component {
         selectedComponent: 'map',
         showModal: false,
   }
+  /*
+  siteData is an array containing USGS sites to be rendered on the map.
+    Each object has a name, location, USGS code, flood levels, and current water level.
+  weatherData is an object containing current weather conditions
+  graphData is an object containing a 30-day record of water levels for a site
+  //selectedComponent determines which component is shown in the main panel (MainBox component)
+  //showModal is a boolean which determines the visibilty of the sign up form.
+  */
 }
 dataUpdateFrequency = 1000 * 60 * 10;
 

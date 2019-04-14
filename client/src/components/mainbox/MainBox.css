@@ -11,9 +11,9 @@
 
 .maincontainer {
   display          : flex;
-  justify-content:flex-start;
   border-radius    : 2px;
   background-color : white;
   flex-direction   : column;
+  justify-content  : flex-start;
   grid-area        : c;
 }

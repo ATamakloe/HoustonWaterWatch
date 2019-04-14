@@ -2,11 +2,11 @@ import { MongoClient } from 'mongodb';
 require('dotenv').config();
 
 class dbClient {
-  private _uri:string = process.env.MONGO_URL;
-  private dbName:string = 'watersites';
-  private collname:string = 'sites';
+  private _uri: string = process.env.MONGO_URL;
+  private dbName: string = 'watersites';
+  private collname: string = 'sites';
   public db: any;
-  public collection:any;
+  public collection: any;
 
   public async connect() {
     let dbclient = await MongoClient.connect(this._uri, { useNewUrlParser: true });
