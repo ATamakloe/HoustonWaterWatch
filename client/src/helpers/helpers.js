@@ -50,10 +50,6 @@ export function withinAlertRadius(baseCoords, otherCoords, radiusInMiles = 5) {
 
 
 
-export function formValidation() {
-}
-
-
 export function checkPhoneNumber(phoneNumber) {
   let errors = [];
   !goodPhoneLength(phoneNumber) && errors.push("Invalid phone number length");
