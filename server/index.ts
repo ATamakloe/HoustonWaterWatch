@@ -138,7 +138,7 @@ cron.schedule(CronTimes.WaterLevelUpdateTimer, () => {
 cron.schedule(CronTimes.FloodAlertTimer, () => {
   if (typeof collection !== undefined && typeof siteCodeArray !== undefined) {
     siteCodeArray.forEach(async siteCode => {
-      let results = await collection.findOne({ _siteCode: `${siteCode}` }, { WaterLevel: 1, floodStage: 1, siteName: 1, subscribers: 1 });
+      let results = await collection.findOne({ siteCode: `${siteCode}` }, { WaterLevel: 1, floodStage: 1, siteName: 1, subscribers: 1 });
       (results.waterLevel >= results.floodStage.caution) && sendAlert(results.siteName)
     })
   }
