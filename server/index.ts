@@ -17,18 +17,16 @@ let siteCodeArray: Array<any>;
 app.use(expressValidator())
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../client/build')));
+
 app.listen(port, async () => {
   //Using a dbClient obj instead of storing the db collection in req.app.locals because functions need to access
   //the collection outside of an express route.
-  console.log("Reaching for the connection")
   collection = await dbClient.connect();
-  console.log(`Connection established ${collection}`)
   collection.find().toArray((err: Error, sites: Array<any>) => {
     if (err) console.log(err);
     siteCodeArray = sites.map(site =>
       site.siteCode
     );
-    console.log(siteCodeArray);
     console.log(`Live on port ${port}`)
   })
 });
@@ -51,7 +49,7 @@ app.get('/sites/:id', cache(10), async (req: express.Request, res: express.Respo
 
 app.get('/chartdata', cache(30), async (req: express.Request, res: express.Response) => {
   try {
-    let results: Array<any> = await collection.find().toArray();
+    let results: Array<any> = await collection.find({}).toArray();
     results = results.map(site => (
       {
         siteCode: site.siteCode,
@@ -59,17 +57,13 @@ app.get('/chartdata', cache(30), async (req: express.Request, res: express.Respo
         location: site.location,
         waterLevel: site.WaterLevel,
         floodStage: site.floodStage,
-        floodStatus: site.floodStage.caution === "N/A" ? "N/A" :
-        //If there's no flood stage, set floodstatus to N/A
-        site.WaterLevel >= site.floodStage.caution ?
-        /*If there is a floodstage, check if the water level is above "Caution"
-        If it is above caution, check if it's above "Flooding", if not set floodstatus to "Normal"
-        if it is, set flood status to flooding, if not set flood status to caution */
-          (site.WaterLevel >= site.floodStage.flood ? "Flooding" : "Caution") :
-          "Normal",
-      }
-    )
-    );
+        floodStatus:
+          (site.floodStage.caution === "N/A" ? "N/A" :
+            parseFloat(site.WaterLevel) < parseFloat(site.floodStage.caution) ? "Normal" :
+              (parseFloat(site.WaterLevel) < parseFloat(site.floodStage.flood) && parseFloat(site.WaterLevel) >= parseFloat(site.floodStage.caution) ? "Caution" :
+                "Flooding")
+          )
+      }))
     res.type('json').status(200).send(results);
   } catch (err) {
     res.status(500).send("Water watch is Unavailable, try again shortly")

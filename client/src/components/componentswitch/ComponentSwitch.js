@@ -4,12 +4,13 @@ import './ComponentSwitch.css'
 
 function switchActiveTabStyle(tabName, ref) {
       return tabName === ref ? "selected" : null
-      //ComponentSwitch takes in "selectedComponent" as a prop, what I'm doing here
-      //is checking which tab is selected and applying styling
+      /*ComponentSwitch takes in "selectedComponent" as a prop, what I'm doing here
+      is checking which tab is selected and applying styling*/
 };
 
-//switchTabs changes selectedComponent to whichever tab was clicked, which changes component displayed in
-//MainBox
+/*switchTabs changes selectedComponent to whichever tab was clicked, which changes component displayed in
+MainBox*/
+
 const ComponentSwitch = ({switchTabs, selectedComponent}) => {
       return (
         <div className="maincontainernav">

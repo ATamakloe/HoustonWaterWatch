@@ -50,8 +50,8 @@ const WeatherIcon = ({icon, summary, temperature}) => {
   return (
     <div className="weatheritem">
     <img className="weathericon" src={url} alt={icon}/>
-      <p class="summary">{summary}</p>
-    <p class="temperature">{temperature.toString().slice(0,2)}F</p>
+      <p className="summary">{summary}</p>
+    <p className="temperature">{temperature.toString().slice(0,2)}F</p>
     </div>
  )
 }
