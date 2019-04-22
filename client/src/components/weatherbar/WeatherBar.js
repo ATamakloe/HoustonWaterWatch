@@ -1,8 +1,10 @@
 import React from 'react';
 import Loading from '../loading/Loading';
+import SiteStatusDonut from '../sitestatusdonut/SiteStatusDonut'
+import WeatherIcon from '../weathericon/WeatherIcon';
 import './WeatherBar.css';
 
-const WeatherBar = ( {weatherData, floodedSites} ) => {
+const WeatherBar = ( {weatherData, siteData} ) => {
   if (weatherData === null) {
     return (
       <div className="weatherbar">
@@ -22,8 +24,8 @@ const WeatherBar = ( {weatherData, floodedSites} ) => {
     return (
     <div className="weatherbar">
       <h1>Weather</h1>
-    <div className="weatheritem"> {weatherData.summary}<br /> {weatherData.temperature.toString().slice(0,-3)}°F </div>
-      <div className="weatheritem"> {floodedSites}% of Sites flooding  </div>
+    <WeatherIcon icon={weatherData.icon} summary={weatherData.summary} temperature={weatherData.temperature}/>
+    <SiteStatusDonut siteData={siteData}/>
     <div className="weatheritem">Last updated<br/> {time} </div>
 
     </div>

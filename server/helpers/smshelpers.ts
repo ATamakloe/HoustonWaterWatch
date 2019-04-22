@@ -6,7 +6,7 @@ const defaultPhoneNum = process.env.DEFAULT_NUMBER;
 const client = require('twilio')(accountSid, authToken);
 
 
-export function sendAlert(siteName: string, numbers: Array<string> = ['8325665148']) {
+export function sendAlert(siteName: string, numbers: Array<string> = [defaultPhoneNum]) {
   numbers.forEach(number => {
     client.messages
       .create({

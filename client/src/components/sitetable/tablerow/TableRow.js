@@ -15,7 +15,7 @@ const TableRow = ({siteCode, siteName, waterLevel, floodStatus, url, loadSiteGra
         {floodStatus}
       </td>
       <td id={siteCode} title="Click to see the water heights for the last 30 days">
-        <button type="button" id={siteCode} onClick={loadSiteGraph}>View Graph</button>
+        <button type="button" className="tablebutton" id={siteCode} onClick={loadSiteGraph}>View Graph</button>
       </td>
     </tr>
   )

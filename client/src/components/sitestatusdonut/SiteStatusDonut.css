@@ -1,0 +1,66 @@
+.legend {
+  display         : flex;
+  margin-top      : 1em;
+  align-items     : center;
+  font-size       : 0.9em;
+  flex-flow       : row nowrap;
+  justify-content : center;
+}
+
+.cautioncircle,
+.floodingcircle,
+.normalcircle {
+  width         : 0.8em;
+  height        : 0.8em;
+  margin-right  : 0.2em;
+  margin-left   : 0.2em;
+  border-radius : 50%;
+}
+
+.normalcircle {
+  background-color : rgb(8, 172, 4);
+}
+
+.cautioncircle {
+  background-color : rgb(244, 182, 66);
+}
+
+.floodingcircle {
+  background-color : rgb(244, 93, 66);
+}
+
+.sectionhead {
+  display         : flex;
+  justify-content : flex-start;
+}
+
+.floodpercentage {
+  margin-top : 0.2em;
+}
+
+span {
+  visibility : hidden;
+}
+
+@media
+  (max-width : 1080px) {
+  .doughnutwrapper {
+    height: 0px !important;
+    width: 0px !important;
+  }
+
+  .legend {
+    width: 0px;
+    height: 0px;
+    visibility: hidden;
+  }
+
+  .floodpercentage {
+    visibility : visible !important;
+    margin-left : 0.5em;
+  }
+
+  span {
+    visibility : visible;
+  }
+}

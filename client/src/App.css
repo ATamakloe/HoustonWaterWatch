@@ -1,7 +1,13 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Lato|Roboto');
+
+
 :root {
-  --main-color : rgb(28, 58, 166);
+  --main-color : rgb(77, 111, 236);
   --font-color : white;
   --button-red : rgb(203, 2, 2);
+  --heading-font : 'Roboto', sans-serif;
+  --sub-font : 'Lato'. sans-serif;
 }
 
 .App {
@@ -18,10 +24,11 @@
                           "b c c c"
                           "b c c c"
                           "b c c c";
+  font-family: var(--sub-font);
 }
 
 @media
-  (max-width : 800px) {
+  (max-width : 1080px) {
   .App {
     display               : grid;
     height                : 94vh;
@@ -29,16 +36,11 @@
     padding               : 0 0 0 0;
     grid-gap              : 0px 5px;
     grid-template-columns : 1fr 1fr 1fr;
-    grid-template-rows    : 8% 28% 28% 28% 1fr;
+    grid-template-rows    : 8% 6% 25% 25% 1fr;
     grid-template-areas   : "a a a"
+                            "b b b"
                             "c c c"
                             "c c c"
                             "c c c"
-                            "b b b";
-  }
-
-  .siteitem {
-    min-height : 4vh;
-    text-align : center;
   }
 }

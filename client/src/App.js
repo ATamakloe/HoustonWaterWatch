@@ -88,12 +88,11 @@ onSubmit = async (address, phoneNumber) => {
   render() {
     //Checking for null so this doesn't crash when initially loading
     const siteLocations = this.state.siteData === null ? null : this.state.siteData.map(x => ({siteCode: x.siteCode, lat:x.location.latitude, lon:x.location.longitude }));
-    const floodedSites = this.state.siteData === null ? null : ((this.state.siteData.filter(site => site.floodStatus === "Caution" || site.floodStatus === "Flooding").length / this.state.siteData.length) * 100).toFixed(0);
     return (
       <div className="App">
         <TitleBar triggerModal={this.triggerModal}/>
         { this.state.showModal && <SignUpModal triggerModal={this.triggerModal} siteLocations={siteLocations} onSubmit={this.onSubmit}/>}
-      <WeatherBar weatherData={this.state.weatherData} floodedSites={floodedSites}/>
+      <WeatherBar weatherData={this.state.weatherData} siteData={this.state.siteData}/>
         <MainBox siteData={this.state.siteData} graphData={this.state.graphData} selectedComponent={this.state.selectedComponent} loadSiteGraph={this.loadSiteGraph} switchTabs={this.switchTabs} />
     </div>);
   }

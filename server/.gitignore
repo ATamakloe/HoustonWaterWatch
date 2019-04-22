@@ -5,3 +5,4 @@
 /waterdatacsv
 .env
 /helpers/seedDB.ts
+/package.json

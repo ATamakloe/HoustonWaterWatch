@@ -1,0 +1,25 @@
+.summary,
+.temperature {
+  font-size : 1em;
+}
+
+.summary {
+  margin-top    : 0.5em;
+  margin-bottom : 0.5em;
+}
+
+.weathericon {
+  width  : 30%;
+  height : 30%;
+}
+
+@media
+  (max-width : 1080px) {
+  .weathericon {
+    display : none;
+  }
+
+  .temperature {
+    padding-left : 0.2em;
+  }
+}

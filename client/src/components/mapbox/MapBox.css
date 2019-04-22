@@ -2,3 +2,16 @@
   visibility : visible;
   grid-area  : c;
 }
+
+.markerbutton {
+  padding          : 0.4em;
+  color            : var(--font-color);
+  border           : none;
+  border-radius    : 0.2em;
+  background-color : var(--main-color);
+}
+
+.markerbutton:hover {
+  filter : brightness(130%);
+  cursor : pointer;
+}

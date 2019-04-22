@@ -33,7 +33,7 @@ const MapBox = ({siteData, loadSiteGraph}) => {
           <br/>
           Status: {site.floodStatus}
           <br/>
-          <button type="button" id={site.siteCode} onClick={loadSiteGraph}>View Site Graph</button>
+          <button type="button" className="markerbutton"id={site.siteCode} onClick={loadSiteGraph}>View Site Graph</button>
         </Popup>
       </Marker>)
     }

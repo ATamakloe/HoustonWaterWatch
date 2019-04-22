@@ -22,6 +22,7 @@
   border-bottom    : 2px solid rgb(232, 232, 232);
   background-color : var(--font-color);
   text-align       : center;
+  font-weight      : bold;
   flex-basis       : 50%;
   flex-grow        : 1;
   /* Reset default border styling */

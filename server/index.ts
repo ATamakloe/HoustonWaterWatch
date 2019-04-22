@@ -1,10 +1,10 @@
 import * as express from 'express';
 import * as cron from 'node-cron';
 import * as path from 'path';
+import * as expressValidator from 'express-validator';
 import { updateMonthlySiteData, updateCurrentWaterLevel } from './helpers/helpers';
 import { cache } from './helpers/middleware';
 import { sendAlert, sendSignUpText } from './helpers/smshelpers';
-import * as expressValidator from 'express-validator';
 import dbClient from './helpers/dbclient';
 require('dotenv').config()
 
@@ -17,14 +17,18 @@ let siteCodeArray: Array<any>;
 app.use(expressValidator())
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../client/build')));
-
 app.listen(port, async () => {
   //Using a dbClient obj instead of storing the db collection in req.app.locals because functions need to access
   //the collection outside of an express route.
+  console.log("Reaching for the connection")
   collection = await dbClient.connect();
+  console.log(`Connection established ${collection}`)
   collection.find().toArray((err: Error, sites: Array<any>) => {
-    if (err) return err;
-    siteCodeArray = sites.map(site => site.siteCode);
+    if (err) console.log(err);
+    siteCodeArray = sites.map(site =>
+      site.siteCode
+    );
+    console.log(siteCodeArray);
     console.log(`Live on port ${port}`)
   })
 });
@@ -45,7 +49,7 @@ app.get('/sites/:id', cache(10), async (req: express.Request, res: express.Respo
   }
 });
 
-app.get('/chartdata', cache(10), async (req: express.Request, res: express.Response) => {
+app.get('/chartdata', cache(45), async (req: express.Request, res: express.Response) => {
   try {
     let results: Array<any> = await collection.find().toArray();
     results = results.map(site => (
@@ -67,7 +71,7 @@ app.get('/chartdata', cache(10), async (req: express.Request, res: express.Respo
   }
 });
 
-app.get('/weatherdata', cache(10), async (req: express.Request, res: express.Response) => {
+app.get('/weatherdata', cache(20), async (req: any, res: any) => {
   const APIKEYWEATHER = process.env.API_KEY_WEATHER;
   const weatherAPIURL = `https://api.darksky.net/forecast/${APIKEYWEATHER}/29.7604,-95.3698`;
   try {
@@ -78,7 +82,7 @@ app.get('/weatherdata', cache(10), async (req: express.Request, res: express.Res
   }
 });
 
-app.post('/subscribe', (req: express.Request, res: express.Response) => {
+app.post('/subscribe', (req: any, res: any) => {
   const phoneNumber: string = req.body.phoneNumber;
   const validSites: Array<string> = req.body.validSites;
   req.checkBody('phoneNumber').isNumeric().isLength({ min: 10, max: 11 })
@@ -107,35 +111,31 @@ app.post('/subscribe', (req: express.Request, res: express.Response) => {
 });
 
 const CronTimes = {
-  DailyUpdateTime: '00 30 00 * * *',
+  update30DayTimer: '00 30 00 * * *',
   //Every day at 12:30AM
-  WaterLevelUpdateTimer: '* 20 * * * *',
-  //Every 15 minutes
-  FloodAlertTimer: '* 10 * * * *'
-  //Every 10 minutes
+  WaterLevelUpdateTimer: '*/45 * * * *',
+  //Every 45 minutes
+  FloodAlertTimer: '*/60 * * * *'
+  //Every 45 minutes
 };
 
-cron.schedule(CronTimes.DailyUpdateTime, () => {
+
+
+const update30DayData = cron.schedule(CronTimes.update30DayTimer, () => {
   //This makes sure the data in DB is fresh
   if (typeof collection !== undefined && typeof siteCodeArray !== undefined) {
-    console.log("Updating monthly water level");
-    siteCodeArray.forEach(siteCode => {
-      updateMonthlySiteData(siteCode, collection);
-    });
-  }
-}
-);
-
-cron.schedule(CronTimes.WaterLevelUpdateTimer, () => {
-  //This updates the currentWaterLevel for each site every 15 mins.
-  if (typeof collection !== undefined && typeof siteCodeArray !== undefined) {
-    console.log("Updating water level");
-    siteCodeArray.forEach(siteCode => updateCurrentWaterLevel(siteCode, collection));
+    updateMonthlySiteData(siteCodeArray, collection);
   }
 });
 
+const updateWaterLevel = cron.schedule(CronTimes.WaterLevelUpdateTimer, () => {
+  //This updates the currentWaterLevel for each site
+  if (typeof collection !== undefined && typeof siteCodeArray !== undefined) {
+    updateCurrentWaterLevel(siteCodeArray, collection);
+  }
+});
 
-cron.schedule(CronTimes.FloodAlertTimer, () => {
+const issueFloodAlert = cron.schedule(CronTimes.FloodAlertTimer, () => {
   if (typeof collection !== undefined && typeof siteCodeArray !== undefined) {
     siteCodeArray.forEach(async siteCode => {
       let results = await collection.findOne({ siteCode: `${siteCode}` }, { WaterLevel: 1, floodStage: 1, siteName: 1, subscribers: 1 });
@@ -143,3 +143,8 @@ cron.schedule(CronTimes.FloodAlertTimer, () => {
     })
   }
 })
+
+
+update30DayData.start();
+updateWaterLevel.start();
+issueFloodAlert.start();

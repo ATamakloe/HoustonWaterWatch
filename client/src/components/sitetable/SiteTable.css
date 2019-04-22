@@ -3,3 +3,25 @@
   overflow   : scroll;
   grid-area  : c;
 }
+
+thead {
+  font-family: var(--main-font);
+  color: var(--main-color);
+}
+
+th {
+  font-weight: bold;
+}
+
+.tablebutton {
+  padding: 0.4em;
+  border: none;
+  border-radius: 0.2em;
+  background-color: var(--main-color);
+  color:var(--font-color);
+}
+
+.tablebutton:hover {
+  cursor: pointer;
+  filter: brightness(130%);
+}
