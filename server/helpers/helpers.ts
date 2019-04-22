@@ -18,8 +18,11 @@ async function updateCurrentWaterLevel(siteCodeArray: Array<string>, collection:
   let siteDataArray: Array<any>;
   try {
     siteDataArray = await fetch(url).then(data => data.json()).then(data => data.value.timeSeries);
+    //If there are new values, update DB with values
     siteDataArray.forEach(site => {
+      if (site.values[0].value.length > 0) {
       collection.updateOne({ siteCode: `${site.sourceInfo.siteCode["0"].value}` }, { $set: { WaterLevel: site.values[0].value.pop().value } });
+      }
     })
   }
   catch (err) {

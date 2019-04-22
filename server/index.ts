@@ -49,7 +49,7 @@ app.get('/sites/:id', cache(10), async (req: express.Request, res: express.Respo
   }
 });
 
-app.get('/chartdata', cache(45), async (req: express.Request, res: express.Response) => {
+app.get('/chartdata', cache(30), async (req: express.Request, res: express.Response) => {
   try {
     let results: Array<any> = await collection.find().toArray();
     results = results.map(site => (
@@ -59,7 +59,12 @@ app.get('/chartdata', cache(45), async (req: express.Request, res: express.Respo
         location: site.location,
         waterLevel: site.WaterLevel,
         floodStage: site.floodStage,
-        floodStatus: site.floodStage.caution === "N/A" ? "N/A" : site.WaterLevel >= site.floodStage.caution ?
+        floodStatus: site.floodStage.caution === "N/A" ? "N/A" :
+        //If there's no flood stage, set floodstatus to N/A
+        site.WaterLevel >= site.floodStage.caution ?
+        /*If there is a floodstage, check if the water level is above "Caution"
+        If it is above caution, check if it's above "Flooding", if not set floodstatus to "Normal"
+        if it is, set flood status to flooding, if not set flood status to caution */
           (site.WaterLevel >= site.floodStage.flood ? "Flooding" : "Caution") :
           "Normal",
       }
@@ -96,8 +101,7 @@ app.post('/subscribe', (req: any, res: any) => {
       let listOfSubscribers: any;
       validSites.forEach(async site => {
         listOfSubscribers = await collection.findOne({ siteCode: `${site}` }, { subscribers: 1 });
-        //If phone number is already subscribed, don't do anything. If it isn't, add to subscribers list
-        //This is to prevent duplicated subscriptions for alert so subscribers don't get multiple alert messages for the same site
+        //If phone number is already subscribed to this site, don't do anything. If it isn't, add to subscribers list
         !listOfSubscribers.subscribers.includes(phoneNumber) && collection.updateOne({ siteCode: `${site}` }, { $push: { subscribers: `${phoneNumber}` } })
       }
       )
