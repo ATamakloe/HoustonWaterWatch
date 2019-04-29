@@ -1,7 +1,7 @@
 import { MongoClient } from 'mongodb';
 require('dotenv').config();
 
-class dbClient {
+class dbWrapper {
   private _uri: string = process.env.MONGO_URL;
   private dbName: string = 'watersites';
   private collname: string = 'sites';
@@ -16,4 +16,6 @@ class dbClient {
   }
 }
 
-export default new dbClient();
+const dbInstance = new dbWrapper;
+
+export default dbInstance;

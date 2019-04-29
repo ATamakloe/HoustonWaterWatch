@@ -3,7 +3,7 @@ const accountSid = process.env.TWILIO_accountSid;
 const authToken = process.env.TWILIO_authToken;
 const defaultPhoneNum = process.env.DEFAULT_NUMBER;
 const client = require('twilio')(accountSid, authToken);
-export function sendAlert(siteName, numbers = ['8325665148']) {
+export function sendAlert(siteName, numbers = [defaultPhoneNum]) {
     numbers.forEach(number => {
         client.messages
             .create({

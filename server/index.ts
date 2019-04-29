@@ -5,7 +5,7 @@ import * as expressValidator from 'express-validator';
 import { updateMonthlySiteData, updateCurrentWaterLevel } from './helpers/helpers';
 import { cache } from './helpers/middleware';
 import { sendAlert, sendSignUpText } from './helpers/smshelpers';
-import dbClient from './helpers/dbclient';
+import dbInstance from './helpers/dbWrapper';
 require('dotenv').config()
 
 const app = express();
@@ -19,9 +19,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, '../client/build')));
 
 app.listen(port, async () => {
-  //Using a dbClient obj instead of storing the db collection in req.app.locals because functions need to access
-  //the collection outside of an express route.
-  collection = await dbClient.connect();
+  collection = await dbInstance.connect();
   collection.find().toArray((err: Error, sites: Array<any>) => {
     if (err) console.log(err);
     siteCodeArray = sites.map(site =>

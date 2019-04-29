@@ -7,13 +7,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import * as fetch from 'isomorphic-fetch';
-function updateMonthlySiteData(siteid, collection) {
+function updateMonthlySiteData(siteCodeArray, collection) {
     return __awaiter(this, void 0, void 0, function* () {
-        const url = `https://waterservices.usgs.gov/nwis/iv/?sites=${siteid}&period=P30D&format=json&parameterCd=00065`;
+        const url = `https://waterservices.usgs.gov/nwis/iv/?sites=${siteCodeArray.join(',')}&period=P30D&format=json&parameterCd=00065`;
+        let siteDataArray;
         try {
-            let last30Days = yield fetch(url).then(data => data.json());
-            last30Days = last30Days.value.timeSeries[0].values[0].value;
-            collection.updateOne({ siteCode: `${siteid}` }, { $set: { lastmonthdata: last30Days } });
+            siteDataArray = yield fetch(url).then(data => data.json()).then(data => data.value.timeSeries);
+            siteDataArray.forEach(site => {
+                collection.updateOne({ siteCode: `${site.sourceInfo.siteCode["0"].value}` }, { $set: { lastmonthdata: site.values[0].value } });
+            });
         }
         catch (err) {
             console.error(err);
@@ -21,14 +23,20 @@ function updateMonthlySiteData(siteid, collection) {
     });
 }
 ;
-function updateCurrentWaterLevel(siteid, collection) {
+function updateCurrentWaterLevel(siteCodeArray, collection) {
     return __awaiter(this, void 0, void 0, function* () {
-        const url = `https://waterservices.usgs.gov/nwis/iv/?sites=${siteid}&parameterCd=00065&format=json`;
-        let currentWaterLevel;
+        const url = `https://waterservices.usgs.gov/nwis/iv/?sites=${siteCodeArray.join(',')}&parameterCd=00065&period=PT45M&format=json`;
         try {
-            currentWaterLevel = yield fetch(url).then(data => data.json());
-            currentWaterLevel = currentWaterLevel.value.timeSeries[0].values[0].value[0].value;
-            collection.updateOne({ siteCode: `${siteid}` }, { $set: { WaterLevel: currentWaterLevel } });
+            let siteDataArray;
+            let newWaterLevel;
+            siteDataArray = yield fetch(url).then(data => data.json()).then(data => data.value.timeSeries);
+            //If there are new values, update DB with values
+            siteDataArray.forEach((site) => __awaiter(this, void 0, void 0, function* () {
+                if (site.values[0].value.length > 0) {
+                    newWaterLevel = site.values[0].value.pop().value;
+                    collection.updateOne({ siteCode: `${site.sourceInfo.siteCode[0].value}` }, { $set: { WaterLevel: newWaterLevel } });
+                }
+            }));
         }
         catch (err) {
             console.error(err);

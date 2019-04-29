@@ -17,21 +17,7 @@
   font-weight : bold;
 }
 
-.getalerts {
-  height           : 30px;
-  margin-right     : 10px;
-  margin-right     : 30px;
-  margin-left      : 10px;
-  color            : white;
-  border           : none;
-  background-color : var(--button-red);
-  text-transform   : uppercase;
-}
 
-.getalerts:hover {
-  filter : brightness(140%);
-  cursor : pointer;
-}
 
 @media
   (max-width : 1080px) {

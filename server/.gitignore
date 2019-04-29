@@ -3,6 +3,6 @@
 .tsconfig.json
 .eslintrc.json
 /waterdatacsv
-.env
 /helpers/seedDB.ts
-/package.json
+.env
+./client/build

@@ -23,7 +23,7 @@ async function updateCurrentWaterLevel(siteCodeArray: Array<string>, collection:
     //If there are new values, update DB with values
     siteDataArray.forEach(async site => {
       if (site.values[0].value.length > 0) {
-        newWaterLevel = site.values[0].value.pop().value;      
+        newWaterLevel = site.values[0].value.pop().value;
         collection.updateOne({ siteCode: `${site.sourceInfo.siteCode[0].value}` },
           { $set: { WaterLevel: newWaterLevel } });
       }})
@@ -33,8 +33,5 @@ async function updateCurrentWaterLevel(siteCodeArray: Array<string>, collection:
   }
 
 };
-
-
-
 
 export { updateMonthlySiteData, updateCurrentWaterLevel };
