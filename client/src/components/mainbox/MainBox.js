@@ -28,16 +28,19 @@ const MainBox = ({ siteData, graphData, loadSiteGraph, switchTabs, selectedCompo
         break
     }
 
-    return siteData === null ?
-       <div className="maincontainer">
-        <Loading/>
-      </div> :
+    let mainbody = siteData === null ? <Loading/> :
+      <>
+      <ComponentSwitch switchTabs={switchTabs} selectedComponent={selectedComponent}/>
+      <div className="mainbox">
+        {displayedComponent}
+      </div>
+   </>
+
+    return (
       <div className="maincontainer">
-        <ComponentSwitch switchTabs={switchTabs} selectedComponent={selectedComponent}/>
-          <div className="mainbox">
-            {displayedComponent}
-          </div>
-        </div>
+        {mainbody}
+     </div>
+    )
   }
 
 export default MainBox;

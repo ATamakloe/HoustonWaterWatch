@@ -4,33 +4,27 @@ import SiteStatusDonut from '../sitestatusdonut/SiteStatusDonut'
 import WeatherIcon from '../weathericon/WeatherIcon';
 import './WeatherBar.css';
 
-const WeatherBar = ( {weatherData, siteData} ) => {
+const WeatherBar = ({weatherData, siteData}) => {
+  let weatherbarbody = null;
   if (weatherData === null) {
-    return (
-      <div className="weatherbar">
-      <Loading/>
-      </div>
-    )
+    weatherbarbody = <Loading/>
   } else if (weatherData === "error") {
-    return (
-      <div className="weatherbar">
-        <div className="weatheritem">
-            Weather Unavailable
-          </div>
-      </div>
-    )
+    weatherbarbody = <div className="weatheritem">
+      Weather Unavailable</div>
   } else {
     let time = new Date(weatherData.time * 1000).toString().slice(3, 21);
-    return (
-    <div className="weatherbar">
+    weatherbarbody = <>
       <h1>Weather</h1>
-    <WeatherIcon icon={weatherData.icon} summary={weatherData.summary} temperature={weatherData.temperature}/>
-    <SiteStatusDonut siteData={siteData}/>
-    <div className="weatheritem">Last updated<br/> {time} </div>
-
-    </div>
-    )
+      <WeatherIcon icon={weatherData.icon} summary={weatherData.summary} temperature={weatherData.temperature}/>
+      <SiteStatusDonut siteData={siteData}/>
+      <div className="weatheritem">Last updated<br/> {time}
+      </div>
+    </>
   }
+
+  return (<div className="weatherbar">
+    {weatherbarbody}
+  </div>)
 }
 
 export default WeatherBar;

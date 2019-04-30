@@ -45,22 +45,33 @@ span {
 @media
   (max-width : 1080px) {
   .doughnutwrapper {
-    height: 0px !important;
-    width: 0px !important;
+    width  : 0px !important;
+    height : 0px !important;
   }
 
   .legend {
-    width: 0px;
-    height: 0px;
-    visibility: hidden;
+    visibility : hidden;
+    width      : 0px;
+    height     : 0px;
   }
 
   .floodpercentage {
-    visibility : visible !important;
+    visibility  : visible !important;
     margin-left : 0.5em;
+  }
+
+  .sectionhead {
+    display : none;
   }
 
   span {
     visibility : visible;
+  }
+}
+
+@media
+  (max-width : 500px) {
+  .weatheritem {
+    font-size : 0.6em;
   }
 }

@@ -4,11 +4,11 @@ import Loading from '../loading/Loading';
 import './GraphBox.css'
 
 const GraphBox = ({graphData}) => {
+  let graphbody = null;
   if (graphData === null) {
-
-    return <div className="graph"> <p>Select a site from the Flood Map or Flood Table to load a graph</p></div>
+      graphbody =  <p>Select a site from the Flood Map or Flood Table to load a graph</p>
   } else if (graphData === "Loading") {
-    return <div className="graph"><Loading/></div>
+    graphbody = <Loading/>
   } else {
     const {siteName, floodStage} = graphData,
       thirtyDayData = graphData.lastMonthData.map(data => ({x: data.dateTime, y: data.value})),
@@ -94,12 +94,14 @@ const GraphBox = ({graphData}) => {
           }
         ]
       }
-    return (
-      <div className="graph">
-      <Line data={data} options={options} legend={legend}/>
-    </div>
-  )
-  }
-}
+      graphbody = <Line data={data} options={options} legend={legend} redraw/>;
+      }
+
+      return (
+        <div className="graph">
+          {graphbody}
+        </div>
+      )
+  };
 
 export default GraphBox;
