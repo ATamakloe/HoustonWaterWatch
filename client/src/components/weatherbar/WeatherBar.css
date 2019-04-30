@@ -57,10 +57,9 @@
   }
 }
 
-
 @media
   (max-width : 450px) {
   .weatherbar {
-    font-size: 0.6em;
+    font-size : 0.6em;
   }
 }
