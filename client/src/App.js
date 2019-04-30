@@ -53,7 +53,6 @@ class App extends Component {
     //Currently this works, but setState is asynchronous so I can see this becoming a problem
     //In the future, might refactor to fetch the data in setState's callback but need to
     //do a bit more research on tradeoffs and potential pitfalls.
-  };
 
   switchTabs = (event) => {
     const newTab = event.target.attributes.getNamedItem('data-tab').value;
@@ -86,7 +85,7 @@ class App extends Component {
       },
       body: JSON.stringify(data)
     })
-  }
+  };
 
   render() {
     //Checking for null so this doesn't crash when initially loading
