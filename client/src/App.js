@@ -45,9 +45,10 @@ class App extends Component {
   };
 
   loadSiteGraph = async (event) => {
-    this.setState({selectedComponent: 'graph', graphData: 'Loading'});
-    let newData = await fetch(`sites/${event.target.id}`).then(data => data.json());
-    this.setState({graphData: newData});
+    this.setState({selectedComponent: 'graph', graphData: 'Loading'}, async () => {
+      let newData = await fetch(`sites/${event.target.id}`).then(data => data.json());
+      this.setState({graphData: newData});
+    });
 
     //Currently this works, but setState is asynchronous so I can see this becoming a problem
     //In the future, might refactor to fetch the data in setState's callback but need to
