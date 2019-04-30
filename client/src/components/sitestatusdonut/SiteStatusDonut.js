@@ -63,7 +63,7 @@ const SiteStatusDonut = ({siteData}) => {
         High: <div className="floodingcircle"></div>
     </div>
     <div className="doughnutwrapper">
-      <Doughnut data={data} options={options} redraw/>
+      <Doughnut data={data} options={options} />
         </div>
       <p className="floodpercentage">{floodedPercentage}% Flooded</p>
 
