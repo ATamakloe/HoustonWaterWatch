@@ -5,7 +5,7 @@ import GetAlerts from '../getalertsbutton/GetAlerts';
 const TitleBar = ({triggerModal}) => {
   return(
     <nav className="titlebar">
-    <h3 className="title">HoustonFloodWatch</h3>
+    <h3 className="title">HoustoWaterWatch</h3>
     <GetAlerts triggerModal={triggerModal} />
   </nav>
 )
