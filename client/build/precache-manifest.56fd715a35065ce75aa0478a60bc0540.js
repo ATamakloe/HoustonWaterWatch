@@ -52,7 +52,7 @@ self.__precacheManifest = [
     "url": "/static/media/wind.080ebca5.png"
   },
   {
-    "revision": "d97d1c6913dfc41881f48939a2ec551a",
+    "revision": "48165c63e3158f97d5ee1e2c2478e848",
     "url": "/index.html"
   }
 ];
