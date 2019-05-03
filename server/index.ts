@@ -26,6 +26,9 @@ app.listen(port, async () => {
       site.siteCode
     );
     console.log(`Live on port ${port}`)
+    updateCurrentWaterLevel(siteCodeArray, collection);
+    updateMonthlySiteData(siteCodeArray, collection);
+
   })
 });
 
@@ -112,7 +115,7 @@ const CronTimes = {
   WaterLevelUpdateTimer: '*/45 * * * *',
   //Every 45 minutes
   FloodAlertTimer: '*/60 * * * *'
-  //Every 45 minutes
+  //Every 60 minutes
 };
 
 
