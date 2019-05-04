@@ -1,4 +1,5 @@
 .mainbox {
+  overflow-y: scroll;
   display               : grid;
   text-align            : center;
   flex-basis            : 95%;
