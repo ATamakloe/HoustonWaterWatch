@@ -1,6 +1,6 @@
 .mainbox {
-  overflow-y: scroll;
   display               : grid;
+  overflow-y            : scroll;
   text-align            : center;
   flex-basis            : 95%;
   grid-template-columns : 1fr 1fr 1fr;

@@ -67,12 +67,12 @@ const GraphBox = ({graphData}) => {
           {
             label: 'Water Height',
             data: waterValues,
-            borderColor: ['rgb(102, 199, 230)'],
-            fill: 'rgb(102, 199, 230)',
+            borderColor: ['rgb(0, 36, 168)'],
+            fill: 'rgb(0, 36, 168)',
             borderWidth: 7,
             pointRadius: 0,
             pointStyle: 'line',
-            pointBackgroundColor: 'rgb(102, 199, 230)'
+            pointBackgroundColor: 'rgb(0, 36, 168)'
           }, {
             label: 'Caution Line',
             data: cautionline,
