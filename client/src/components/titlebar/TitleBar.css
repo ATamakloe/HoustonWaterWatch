@@ -2,8 +2,8 @@
   display          : flex;
   width            : 100vw;
   margin-bottom    : 10px;
-  color            : var(--main-color);
-  background-color : var(--font-color);
+  color            : var(--font-color);
+  background-color : var(--main-color);
   align-items      : center;
   font-family      : var(--heading-font);
   flex-direction   : row;

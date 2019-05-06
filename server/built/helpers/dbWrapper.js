@@ -24,5 +24,4 @@ class dbWrapper {
     }
 }
 const dbInstance = new dbWrapper;
-Object.freeze(dbInstance);
 export default dbInstance;

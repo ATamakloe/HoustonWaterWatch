@@ -29,6 +29,8 @@ app.listen(port, () => __awaiter(this, void 0, void 0, function* () {
             console.log(err);
         siteCodeArray = sites.map(site => site.siteCode);
         console.log(`Live on port ${port}`);
+        updateCurrentWaterLevel(siteCodeArray, collection);
+        updateMonthlySiteData(siteCodeArray, collection);
     });
 }));
 app.get('/sites/:id', cache(10), (req, res) => __awaiter(this, void 0, void 0, function* () {
@@ -44,10 +46,11 @@ app.get('/sites/:id', cache(10), (req, res) => __awaiter(this, void 0, void 0, f
         res.type('json').status(200).send(site);
     }
     catch (err) {
+        console.log(err);
         res.status(500).send("Cannot retrieve data for this site");
     }
 }));
-app.get('/chartdata', cache(30), (req, res) => __awaiter(this, void 0, void 0, function* () {
+app.get('/watersites', cache(30), (req, res) => __awaiter(this, void 0, void 0, function* () {
     try {
         let results = yield collection.find({}).toArray();
         results = results.map(site => ({
@@ -64,6 +67,7 @@ app.get('/chartdata', cache(30), (req, res) => __awaiter(this, void 0, void 0, f
         res.type('json').status(200).send(results);
     }
     catch (err) {
+        console.log(err);
         res.status(500).send("Water watch is Unavailable, try again shortly");
     }
 }));
@@ -108,7 +112,7 @@ const CronTimes = {
     WaterLevelUpdateTimer: '*/45 * * * *',
     //Every 45 minutes
     FloodAlertTimer: '*/60 * * * *'
-    //Every 45 minutes
+    //Every 60 minutes
 };
 const update30DayData = cron.schedule(CronTimes.update30DayTimer, () => {
     //This makes sure the data in DB is fresh

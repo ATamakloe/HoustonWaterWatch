@@ -18,8 +18,9 @@ export function sendAlert(siteName: string, numbers: Array<string> = [defaultPho
   })
 }
 
-export function sendSignUpText(phoneNumber: string = '8325665148') {
-  //add phoneNumber after switching from trial account
+export function sendSignUpText(phoneNumber: string = defaultPhoneNum) {
+  /*All texts get send by default to my phone number, will replace after
+  I can make sure user's numbers are stored securely*/
   client.messages
     .create({
       body: `You'll recieve alerts from this number when flooding is detected near you`,

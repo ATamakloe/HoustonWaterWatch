@@ -44,11 +44,12 @@ app.get('/sites/:id', cache(10), async (req: express.Request, res: express.Respo
     }
     res.type('json').status(200).send(site);
   } catch (err) {
+    console.log(err);
     res.status(500).send("Cannot retrieve data for this site")
   }
 });
 
-app.get('/chartdata', cache(30), async (req: express.Request, res: express.Response) => {
+app.get('/watersites', cache(30), async (req: express.Request, res: express.Response) => {
   try {
     let results: Array<any> = await collection.find({}).toArray();
     results = results.map(site => (
@@ -67,6 +68,7 @@ app.get('/chartdata', cache(30), async (req: express.Request, res: express.Respo
       }))
     res.type('json').status(200).send(results);
   } catch (err) {
+    console.log(err);
     res.status(500).send("Water watch is Unavailable, try again shortly")
   }
 });

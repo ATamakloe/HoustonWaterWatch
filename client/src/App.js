@@ -28,7 +28,7 @@ class App extends Component {
   dataUpdateFrequency = 1000 * 60 * 10;
 
   async componentDidMount() {
-    let initialSiteData = await fetch('chartdata').then(data => data.json());
+    let initialSiteData = await fetch('watersites').then(data => data.json());
     this.setState({siteData: initialSiteData});
 
     let newWeatherData = await fetch('weatherdata').then(handleErrors).then(data => data.json()).catch(error => this.setState({weatherData: "error"}));
@@ -38,7 +38,7 @@ class App extends Component {
       this.setState({
         siteData: null
       }, async () => {
-        let newData = await fetch('chartdata').then(data => data.json());
+        let newData = await fetch('watersites').then(data => data.json());
         this.setState({siteData: newData});
       })
     }, this.dataUpdateFrequency);
